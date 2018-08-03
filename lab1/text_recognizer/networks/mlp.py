@@ -9,7 +9,7 @@ from tensorflow.keras import layers
 def mlp(input_shape: Tuple[int, ...],
         output_shape: Tuple[int, ...],
         layer_size: int=128,
-        dropout_amount: float=0.25,
+        dropout_amount: float=0.3,
         num_layers: int=3) -> Model:
     """
     Simple multi-layer perceptron: just fully-connected layers with dropout between them, with softmax predictions.
@@ -26,11 +26,13 @@ def mlp(input_shape: Tuple[int, ...],
     model.add(Reshape((28, 28,1), input_shape=(28,28)))
     model.add(Conv2D(32,(3,3),activation='relu',input_shape = input_shape))
     model.add(BatchNormalization())
-    model.add(layers.MaxPooling2D((2, 2)))
-    model.add(Conv2D(64,(3,3),activation='relu'))
+    model.add(Conv2D(64,(3,3),strides =2,activation='relu'))
     model.add(BatchNormalization())
-    model.add(layers.MaxPooling2D((2, 2)))    
-    model.add(Conv2D(128,(3,3),activation='relu'))
+    #model.add(layers.MaxPooling2D((2, 2)))
+    model.add(Conv2D(128,(3,3),strides =2,activation='relu'))
+    model.add(BatchNormalization())    
+    #model.add(layers.MaxPooling2D((2, 2)))    
+    model.add(Conv2D(256,(3,3),strides =2,activation='relu'))
     model.add(BatchNormalization())
     model.add(Flatten())
     model.add(Dropout(dropout_amount))

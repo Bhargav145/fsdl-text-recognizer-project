@@ -7,6 +7,7 @@ from tensorflow.keras.models import Sequential, Model
 
 def lenet(input_shape: Tuple[int, ...], output_shape: Tuple[int, ...]) -> Model:
     num_classes = output_shape[0]
+    print(len(input_shape))
 
     ##### Your code below (Lab 2)
 
